@@ -1,0 +1,10 @@
+<div id="user">
+    <h2>{user.realname}</h2>
+    Enter your name : <input type="text" rv-value="user.name" rv-on-change="user.validate">
+    <br />
+    My name : <span class="" rv-text="user.name"></span>
+    <br />
+    About : <span class="" rv-html="user.about" rv-show="user.about"></span>
+    <br />
+    <button rv-on-click="controller.setName">Submit</button>
+</div>

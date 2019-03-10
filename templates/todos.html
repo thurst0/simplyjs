@@ -1,17 +1,10 @@
-<div id="tejabu">
-    Enter your name : <input type="text" rv-value="user.name" rv-on-change="user.publish">
-    <br />
-    My name : <span class="" rv-text="user.name"></span>
-    <br />
-    Paragraph1 : <span class="" rv-html="user.tag" rv-show="user.available"></span>
-    <br />
-    Paragraph2 : <span class="" rv-html="user.name" rv-unless="user.vote"></span>
-    <br />
-    <button rv-enable="user.sendData">Click Me</button>
+
+<div id="todos">
+    <ul>
+        <li rv-each-todo="todo">
+            <input type="checkbox" rv-checked="todo.done">
+            <span>{ todo.summary }</span>
+        </li>
+    <ul>
+    <button rv-on-click="controller.printList">Print List</button>
 </div>
-<ul id="todos">
-    <li rv-each-list="list">
-        <input type="checkbox" rv-checked="list.done">
-        <span>{ list.summary }</span>
-    </li>
-<ul>
