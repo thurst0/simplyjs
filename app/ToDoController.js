@@ -1,10 +1,12 @@
-//define(function () {
- require(['jspdf'], function(jspdf) {
+// //define(function () {
+//  require(['jspdf'], function(jspdf) {
+define(['app/services', 'jspdf'],function (services, jspdf) {
+    var self = {}
     var parms = {}
-    var todos = [
-        {done:true, summary:"List 1"}
-        , {done:false, summary:"List 2"}
-    ]
+    // var todos = [
+    //     {complete:true, summary:"List 1"}
+    //     , {complete:false, summary:"List 2"}
+    // ]
  
     var controller = {
         removeItem: function(e, model) {
@@ -12,7 +14,8 @@
         },
         addItem: function(){
 
-        },printList: function(){
+        }
+        ,printList: function(){
             var pdf = new jspdf()
             pdf.fromHTML($('#todos').get(0), 15, 15)
             pdf.save('a4.pdf')//pdf.output("dataurlnewwindow")
@@ -22,10 +25,20 @@
     function $id(id) {
         return document.getElementById(id);
     }
-    setTimeout(function(){
-        rivets.bind($('#todos'), {todo:todos,controller:controller})
-    }, '100')
-    return {
-       
-    };
+    
+    self.init = function(p){
+        parms = p
+        console.log(services)
+        setTimeout(function(){
+            services.getData('todos').then(function(data){
+                rivets.bind($('#todos'), {todo:data,controller:controller})
+            })
+        }, '100')
+    }
+
+    // $(document).ready(function(){
+    //   console.log('ready')
+    //  });
+
+    return self
 });

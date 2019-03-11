@@ -1,12 +1,23 @@
-require(['jquery', 'navigo', 'rivets', 'jspdf'], function($, navigo, rivets, jspdf) {
+require(['jquery', 'navigo', 'rivets', 'sightglass', 'app/services', 'app/document', 'app/components'], function($, navigo, rivets, sightglass, services, d, components) {
     var app = this 
-
     var router = new navigo(null, true, '#!');
+
+    app.loadHTML = function (url, id) {
+        req = new XMLHttpRequest();
+        req.open('GET', url);
+        req.send();
+        req.onload = () => {
+            d.$id(id).innerHTML = req.responseText;
+        }
+    }  
 
     router.hooks({
         before: function(done, parms) { 
-            // validate signed in then render
-          done()
+            if(!services.loggedIn){
+                alert('you are not signed in')
+                return
+            }
+            else done()
         }, after: function(parms) {  
            // after render
         }
@@ -14,66 +25,46 @@ require(['jquery', 'navigo', 'rivets', 'jspdf'], function($, navigo, rivets, jsp
             // triggered when leaving the route
         }
     })
-
-    router.on(
-      '/todo', function(parms, query){loadHTML('./templates/todos.html', 'view')}
-      , {
-        before: function(done, parms) { 
-            console.log(require.defined('/app/ToDoController.js'))
-            if(require.defined('/app/ToDoController.js')){
-                // clear
-                moduleName = '/app/ToDoController.js'
-                require.undef(moduleName)
+    app.addRoute = function(path, template, controller){
+        var ctrl
+        path = '/' + path
+        template = './templates/' + template
+        template += '.html'
+        controller = '/app/' + controller
+        controller += '.js'
+        router.on(
+            path
+            , function(parms, query){app.loadHTML(template, 'view')}
+            , {
+                before: function(done, parms) { 
+                    if(require.defined(controller)){
+                        //require.undef(controller)
+                        ctrl = require.s.contexts._.defined[controller]
+                        ctrl.init(parms)
+                        done()
+                    }else{
+                        require([controller], function(ctrl){ 
+                            done()
+                            ctrl.init(parms)
+                        })
+                    }
+                }
             }
-            require(['/app/ToDoController.js'], function(controller){ // load controller and pass in parms
-                //controller.parms = parms 
-                done()
-            })
-          },
-        after: function(parms) {  
-          
-        }  
-      }
-    );
-    router.on(
-        '/user/:name', function(){loadHTML('./templates/user.html', 'view')}
-        , {
-        before: function(done, parms) { 
-            if(require.defined('/app/UserController.js')){
-                // clear
-                moduleName = '/app/UserController.js'
-                require.undef(moduleName)
-            }
-            require(['/app/UserController.js'], function(controller){
-                //controller.parms = parms 
-                done()
-            })
-        }
-    })
+          )
+    }
+    app.addRoute('todo', 'todos', 'ToDoController')
+    app.addRoute('user/:name', 'user', 'UserController')
+    app.addRoute('griddemo', 'griddemo', 'GridDemoController')
 
     // set the 404 route
-    router.notFound((query) => { $id('view').innerHTML = '<h3>Couldn\'t find the page you\'re looking for...</h3>'; });
+    router.notFound((query) => { d.$id('view').innerHTML = '<h3>Couldn\'t find the page you\'re looking for...</h3>'; });
     
     router.resolve();
     
     //router.navigate('/todo');
 
-    rivets.configure({prefix: 'rv', preloadData: true, rootInterface: '.', templateDelimiters: ['{', '}'],
-            
-    });
+    rivets.configure({prefix: 'rv', preloadData: true, rootInterface: '.', templateDelimiters: ['{', '}']})
+    components.init()
 
-    function $id(id) {
-        return document.getElementById(id);
-    }
-
-    loadHTML = function (url, id) {
-        req = new XMLHttpRequest();
-        req.open('GET', url);
-        req.send();
-        req.onload = () => {
-            $id(id).innerHTML = req.responseText;
-        }
-    }  
-
-    return {}
+    //return {}
 });

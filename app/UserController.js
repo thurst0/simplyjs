@@ -1,9 +1,11 @@
 // define(function () {
-require([], function() {
+define(['app/services'],function (services) {
+    var self = {}
     var controller = {
         setName : function(e, model) {
             console.log(model.user.name)
             user.realname = model.user.name
+            services.userid = model.user.name
         }
     }
 
@@ -18,10 +20,19 @@ require([], function() {
           console.log("validated")
         }
     }
-    setTimeout(function(){
-        console.log(parms)
-        if(parms.name){user.name = parms.name}
-        rivets.bind($('#user'), {user: user, controller:controller}); 
-    }, '100')
-    return{}
+    self.init = function(p){
+        parms = p
+        setTimeout(function(){
+            console.log(parms)
+            if(parms.name){user.name = parms.name}
+            rivets.bind($('#user'), {user: user, controller:controller}); 
+        }, '100')
+        services.getData('asdf').then(function(data){
+            console.log(data)
+        }, function(error) {
+            console.log(error)
+        })
+    }
+
+    return self
 });

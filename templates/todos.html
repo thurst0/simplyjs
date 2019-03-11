@@ -2,8 +2,7 @@
 <div id="todos">
     <ul>
         <li rv-each-todo="todo">
-            <input type="checkbox" rv-checked="todo.done">
-            <span>{ todo.summary }</span>
+            <todo-item item="todo" default="todo.default"></todo-item>
         </li>
     <ul>
     <button rv-on-click="controller.printList">Print List</button>

@@ -4,21 +4,23 @@
 // except for 'app' ones, which are in a sibling
 // directory.
 requirejs.config({
-    "shim" : {
-        "sightglass" : {
-            "exports" : "sightglass"
-        },
-        "rivets" : {
-            "deps" : ["sightglass"],
-            "exports" : "rivets"
-        },
-    },
+    // "shim" : {
+    //     "sightglass" : {
+    //         "exports" : "sightglass"
+    //     },
+    //     "rivets" : {
+    //         "deps" : ["sightglass"],
+    //         "exports" : "rivets"
+    //     },
+    // },
     "paths" : {
-            "rivets": "//cdnjs.cloudflare.com/ajax/libs/rivets/0.8.1/rivets",
+            "rivets": "rivets",
             "sightglass" : "sightglass",
             "app": '../app',
             "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
-            "jspdf" : "../lib/jspdf" //integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous">
+            "jspdf" : "../lib/jspdf",
+            "aggrid" : "//unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle",
+            "bootstrap" : "//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min"
     }
     , baseUrl: 'lib'
 });
