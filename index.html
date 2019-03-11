@@ -7,10 +7,14 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
     <body>
-        <h1>Hello World</h1>
+        <div id="header">
+            <h1>
+                Hello <span rv-text="userid"></span>
+            </h1>
+        </div>
         <a href="/todo" data-navigo>Todos</a>
         <br>
-        <a href="/user/th" data-navigo>User</a>
+        <a href="/user/th" data-navigo>User Profile</a>
         <br>
         <a href="/griddemo" data-navigo>Grid Demo</a>
         <br>

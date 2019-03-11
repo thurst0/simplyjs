@@ -17,7 +17,7 @@ requirejs.config({
             "rivets": "rivets",
             "sightglass" : "sightglass",
             "app": '../app',
-            "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
+            // "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
             "jspdf" : "../lib/jspdf",
             "aggrid" : "//unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle",
             "bootstrap" : "//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min"

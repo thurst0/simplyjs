@@ -1,11 +1,11 @@
 // define(function () {
-define(['app/services'],function (services) {
+define(['app/services', 'app/header'],function (services, header) {
     var self = {}
     var controller = {
         setName : function(e, model) {
-            console.log(model.user.name)
             user.realname = model.user.name
             services.userid = model.user.name
+            header.init()
         }
     }
 
@@ -23,15 +23,14 @@ define(['app/services'],function (services) {
     self.init = function(p){
         parms = p
         setTimeout(function(){
-            console.log(parms)
             if(parms.name){user.name = parms.name}
             rivets.bind($('#user'), {user: user, controller:controller}); 
         }, '100')
-        services.getData('asdf').then(function(data){
-            console.log(data)
-        }, function(error) {
-            console.log(error)
-        })
+        // services.getData('asdf').then(function(data){
+        //     console.log(data)
+        // }, function(error) {
+        //     console.log(error)
+        // })
     }
 
     return self

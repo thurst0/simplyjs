@@ -1,4 +1,4 @@
-require(['jquery', 'navigo', 'rivets', 'sightglass', 'app/services', 'app/document', 'app/components'], function($, navigo, rivets, sightglass, services, d, components) {
+require(['jquery', 'navigo', 'rivets', 'sightglass', 'app/services', 'app/document', 'app/components', 'app/header'], function($, navigo, rivets, sightglass, services, d, components, header) {
     var app = this 
     var router = new navigo(null, true, '#!');
 
@@ -64,7 +64,9 @@ require(['jquery', 'navigo', 'rivets', 'sightglass', 'app/services', 'app/docume
     //router.navigate('/todo');
 
     rivets.configure({prefix: 'rv', preloadData: true, rootInterface: '.', templateDelimiters: ['{', '}']})
+    
     components.init()
+    header.init()
 
     //return {}
 });

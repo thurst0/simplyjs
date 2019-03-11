@@ -1,13 +1,9 @@
 // //define(function () {
 //  require(['jspdf'], function(jspdf) {
-define(['app/services', 'jspdf'],function (services, jspdf) {
+define(['app/services', 'jspdf', 'app/header'],function (services, jspdf, header) {
     var self = {}
     var parms = {}
-    // var todos = [
-    //     {complete:true, summary:"List 1"}
-    //     , {complete:false, summary:"List 2"}
-    // ]
- 
+
     var controller = {
         removeItem: function(e, model) {
             console.log(model)
@@ -28,17 +24,14 @@ define(['app/services', 'jspdf'],function (services, jspdf) {
     
     self.init = function(p){
         parms = p
-        console.log(services)
         setTimeout(function(){
+            header.init()
             services.getData('todos').then(function(data){
                 rivets.bind($('#todos'), {todo:data,controller:controller})
             })
         }, '100')
     }
 
-    // $(document).ready(function(){
-    //   console.log('ready')
-    //  });
 
     return self
 });
