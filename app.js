@@ -12,7 +12,7 @@ requirejs.config({
     //         "deps" : ["sightglass"],
     //         "exports" : "rivets"
     //     },
-    // }, 
+    // },  asdf
     "paths" : {
             "rivets": "rivets",
             "sightglass" : "sightglass",
